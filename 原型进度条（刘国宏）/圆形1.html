@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		body {
+			font-family: "微软雅黑";
+		}
+		/*创建一个最里面的圆来显示百分比进度条*/
+		.circle {
+			width: 200px;
+			height: 200px;
+			position: absolute;
+			border-radius: 50%;
+			background: #000;
+		}
+		/*创建一个空的盒子*/
+		.pie_left, .pie_right {
+			width:200px; 
+			height:200px;
+			position: absolute;
+			top: 0;left: 0;			
+		}
+		/*外面的圆显示剩余的百分比*/
+		.left{
+			width:200px; 
+			height:200px;
+			/*background:#ffc107;*/
+			background: linear-gradient(red, blue);
+			border-radius: 50%;
+			position: absolute;
+			top: 0;
+			left: 0;
+		}
+		.right {
+			width:200px; 
+			height:200px;
+			background:#ff0;
+			background: linear-gradient(#ffc107, #ff0);
+			border-radius: 50%;
+			position: absolute;
+			top: 0;
+			left: 0;
+		}
+        /*clip 属性剪裁绝对定位元素*/
+		.pie_right, .right {
+			clip:rect(0px,auto,auto,100px);
+		}
+		.pie_left, .left {
+			clip:rect(0px,100px,auto,0px);
+		}
+		.mask {
+			width: 150px;
+			height: 150px;
+			border-radius: 50%;
+			left: 25px;
+			top: 25px;
+			background: #fff;
+			position: absolute;
+			text-align: center;
+			line-height: 150px;
+			font-size: 20px;
+			font-weight: bold;
+			color: #00aacc;
+		}
+	</style>
+	<script type="text/javascript" src="jquery-3.2.0.js"></script>
+</head>
+<body>
+	<div class="circle" style="left:10">
+		<div class="pie_left"><div class="left"></div></div>
+		<div class="pie_right"><div class="right"></div></div>
+		<div class="mask"><span>0</span>%</div>
+	</div>
+	<script type="text/javascript">
+       
+		$(function() {
+//			度数
+		 var num = $('.mask span').text() *3.6;
+		 //添加一个定时器	
+		var timer = setInterval(function(){
+		 	$('.mask span').text(parseInt(num/3.6)+1); 
+			num++;	
+				if (num<=180) {
+					$('.circle').find('.right').css('transform', "rotate(" + num + "deg)");
+				} else {
+					$('.circle').find('.right').css('transform', "rotate(180deg)");
+					$('.circle').find('.left').css('transform', "rotate(" + (num - 180) + "deg)");
+				};	 
+				if((parseInt(num/3.6))==100){
+					clearInterval(timer);
+				}
+			}, 50)
+		
+		});
+	</script>
+</body>
+</html>

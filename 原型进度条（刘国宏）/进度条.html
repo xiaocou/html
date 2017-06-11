@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="{CHARSET}">
+		<title>进度条</title>
+		<style type="text/css">
+			.outside{
+				width: 200px;
+				height: 200px;
+				background-color: #000;
+				border-radius: 50%;
+				position: absolute;
+			}
+			.inside1,.inside2{
+				width: 200px;
+				height: 200px;
+				position: absolute;
+				top: 0px;
+				left: 0px;
+			}
+			.inside_out1{
+				width: 200px;
+				height: 200px;
+				position: absolute;
+				top: 0;
+				left: 0;
+				background: linear-gradient(#f00,#fff);
+				border-radius: 50%;
+			}
+			.inside_out2{
+				width: 200px;
+				height: 200px;
+				position: absolute;
+				top: 0;
+				left: 0;
+				background: linear-gradient(#f00,#ff0);
+				border-radius: 50%;
+			}
+			.inside1,.inside_out1{
+				clip: rect(0px 100px auto 0px);
+			}
+			.inside2,.inside_out2{
+				clip: rect(0px auto auto 100px );
+			}
+			.span {
+				width: 150px;
+				height: 150px;
+				border-radius: 50%;
+				left: 25px;
+				top: 25px;
+				background: #fff;
+				position: absolute;
+				text-align: center;
+				line-height: 150px;
+				font-size: 20px;
+				font-weight: bold;
+				color: #00aacc;
+			}
+			button{
+				width: 100px;
+				height: 100px;
+				background-color: #ff0;
+				line-height: 100px;
+				position: relative;
+				left: 250px;
+				font-weight: bold;
+				text-align: center;
+			}
+		</style>
+		<script type="text/javascript" src="jquery-3.2.0.js" ></script>
+	</head>
+	<body>
+		<div class="outside">
+			<div class="inside1"><div class="inside_out1"></div></div>
+			<div class="inside2"><div class="inside_out2"></div></div>
+			<div class="span"><span>0</span>%</div>
+		</div>
+		<button>按钮</button>
+		<script>
+//			度数
+			var num=$('.span>span').html()*3.6;
+			console.log(num);
+			$('button').click(function(){
+				num+=6;
+				if (num<=180) {
+					$('.inside_out2').css({transform:'rotate('+num+'deg)'})					
+				}else{
+					$('.inside_out1').css({transform:'rotate('+(num-180)+'deg)'})	
+				}
+				$('.span>span').html(parseFloat(num/3.6).toFixed(0));
+				if (parseFloat(num/3.6)>=100) {
+//					取消绑定 
+					$('button').unbind('click');
+				}
+			})
+//			var time=setInterval(function(){
+//				$('.span>span').html(parseInt(num/3.6)+1);
+//				num++;
+//				if (num<=180) {
+//					$('.inside_out2').css({transform:'rotate('+num+'deg)'})					
+//				}else{
+//					$('.inside_out1').css({transform:'rotate('+(num-180)+'deg)'})	
+//				}
+//				if (parseInt(num/3.6)==100) {
+//					clearInterval(time);
+//				}
+//			},5)
+		</script>
+	</body>
+</html>
