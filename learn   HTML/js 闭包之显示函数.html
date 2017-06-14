@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<!-- 显示函数，输20，显示￥20.00 -->
+	<script type="text/javascript">
+	var getPrice,setPrice;
+	(function(){
+		var price=0;
+		getPrice=function(){
+			return '¥'+price.toFixed(2);
+		}
+		setPrice=function(p){
+			// 价格合法
+			if (!isNaN(p)&&p>0) {
+				price=p;
+			}else{
+				// 抛出异常
+				throw'价格必须大于零';
+			}
+		}
+	})();
+	// 调用setter方法
+	setPrice(parseInt(prompt('请输入')));
+	alert(getPrice());
+	</script>
+</body>
+</html>
